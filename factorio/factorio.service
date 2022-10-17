@@ -1,7 +1,13 @@
 [Unit]
-Description=Factorio Headless Server
+Description=Factorio Server
 
 [Service]
+ExecStart=/opt/factorio/bin/x64/factorio --start-server-load-latest --server-settings /opt/factorio/data/server-settings.json
+WorkingDirectory=/opt/factorio
+Restart=on-failure
 Type=simple
 User=factorio
-ExecStart=/opt/factorio/bin/x64/factorio --start-server-load-latest --server-settings /opt/factorio/data/server-settings.json
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
