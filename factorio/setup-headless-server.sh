@@ -4,10 +4,11 @@ github_base=https://github.com/nickcallan/linux-scripts/raw/main/factorio/
 
 curl -sL "https://factorio.com/get-download/stable/headless/linux64" | tar xvJf - -C /opt
 
+# make this dir before changing ownership, otherwise saves dir cannot be written to by factorio user
+mkdir /opt/factorio/saves
 adduser --no-create-home factorio
 chown -R factorio:factorio /opt/factorio
 
-mkdir /opt/factorio/saves
 curl -L ${github_base}estella_server.zip -o /opt/factorio/saves/estella_server.zip
 
 curl -L ${github_base}server-settings.json -o /opt/factorio/data/server-settings.json
