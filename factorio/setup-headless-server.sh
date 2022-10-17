@@ -1,18 +1,16 @@
 #!/bin/sh
+sudo su root
 github_base=https://github.com/nickcallan/linux-scripts/raw/main/factorio/
 
-sudo su root
-curl -s "https://factorio.com/get-download/stable/headless/linux64" | tar xvz -C /opt
+curl -sL "https://factorio.com/get-download/stable/headless/linux64" | tar xvJf - -C /opt
 
-adduser --disabled-login --no-create-home --gecos factorio factorio
+adduser --no-create-home factorio
 chown -R factorio:factorio /opt/factorio
 
 mkdir /opt/factorio/saves
-cd /opt/factorio/saves
-curl -OL ${github_base}estella_server.zip
+curl -L ${github_base}estella_server.zip -o /opt/factorio/saves/estella_server.zip
 
-cd /opt/factorio/data
-curl -OL ${github_base}server-settings.json
+curl -L ${github_base}server-settings.json -o /opt/factorio/data/server-settings.json
 
 curl -L ${github_base}factorio.service -o /etc/systemd/system/factorio.service
 systemctl --now enable factorio.service
