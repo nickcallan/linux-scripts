@@ -10,10 +10,11 @@ adduser --no-create-home factorio
 chown -R factorio:factorio /opt/factorio
 
 curl -L ${github_base}estella_server.zip -o /opt/factorio/saves/estella_server.zip
-
 curl -L ${github_base}server-settings.json -o /opt/factorio/data/server-settings.json
+
+# make sure to allow port 34197 UDP traffic!
+firewall-cmd --permanent --zone=public --add-port=34197/udp
+systemctl restart firewalld
 
 curl -L ${github_base}factorio.service -o /etc/systemd/system/factorio.service
 systemctl --now enable factorio.service
-
-# make sure to allow port 34197 UDP traffic!
